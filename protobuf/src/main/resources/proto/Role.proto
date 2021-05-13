@@ -1,0 +1,19 @@
+//使用 proto3 语法
+syntax = "proto3";
+
+//生成 proto 文件所在包路径
+package com.wxw.notes.protobuf.proto;
+
+//生成 proto 文件所在包路径
+option java_package = "com.wxw.notes.protobuf.proto";
+
+//生成 proto 文件名
+option java_outer_classname="RoleProto";
+
+
+// 定义一个新的对象
+message Role {
+	string code = 1;
+	string name = 2;
+}
+
