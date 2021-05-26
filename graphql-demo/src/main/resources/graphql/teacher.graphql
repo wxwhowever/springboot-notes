@@ -1,0 +1,15 @@
+extend type Query{
+    listTeacher:[Teacher]
+}
+
+type Teacher{
+    code : String
+    name : String
+    description : String
+}
+
+input TeacherInput{
+    code : String
+    name : String
+    description : String
+}
