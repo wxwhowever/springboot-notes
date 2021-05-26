@@ -1,7 +1,0 @@
- type Result{
-    #状态码
-    code : Int!
-    #状态信息
-    msg : String!
-
-}
