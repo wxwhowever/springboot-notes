@@ -1,0 +1,24 @@
+
+type Student{
+    #id
+    id : String
+    #编号
+    code : String!
+    #名称
+    name : String!
+    #描述
+    description : String!
+
+}
+
+input StudentInput{
+    #id
+    id : String
+    #编号
+    code : String!
+    #名称
+    name : String!
+    #描述
+    description : String!
+
+}

@@ -1,0 +1,25 @@
+# 端口
+server:
+  port: 7002
+
+# 应用名称
+spring:
+  application:
+    name: graphql-demo
+
+# graphql 相关配置
+graphql:
+  servlet:
+    mapping: /graphql
+    enabled: true
+    corsEnabled: false # 关闭跨域，仅使用浏览器插件调试时设置为false
+    playground:
+      cdn:
+        enabled: true    # playground 使用 cdn 的静态文件
+    # if you want to @ExceptionHandler annotation for custom GraphQLErrors
+    exception-handlers-enabled: true
+    contextSetting: PER_REQUEST_WITH_INSTRUMENTATION
+  tools:
+    #扫描 resource 下 .graphql 后缀的文件
+    schema-location-pattern: "**/*.graphql"
+

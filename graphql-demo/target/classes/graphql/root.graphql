@@ -1,0 +1,15 @@
+#定义查询类型和更改类型
+schema {
+    query: Query
+    mutation: Mutation
+}
+
+# 定义一个空的查询类型
+type Query{
+
+}
+
+# 定义一个空的更改类型
+type Mutation{
+
+}
