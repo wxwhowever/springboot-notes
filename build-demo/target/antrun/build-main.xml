@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<project name="maven-antrun-" default="main"  >
+<target name="main">
+  <echo message="unziping build-demo.zip"/>
+  <unzip src="target/dist/build-demo.zip" dest="target/dist/build-demo"/>
+</target>
+</project>

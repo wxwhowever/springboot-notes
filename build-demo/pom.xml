@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.5.8</version>
+        <relativePath/> <!-- lookup parent from repository -->
+    </parent>
+    <groupId>com.wxw.notes</groupId>
+    <artifactId>build-demo</artifactId>
+    <version>1.0</version>
+    <name>build-demo</name>
+    <description>Demo project for Spring Boot</description>
+    <properties>
+        <java.version>1.8</java.version>
+    </properties>
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+    </dependencies>
+
+    <build>
+
+        <!-- 打包后的名字 -->
+        <finalName>${project.name}</finalName>
+
+        <plugins>
+            <!--打包跳过测试类-->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <configuration>
+                    <testFailureIgnore>true</testFailureIgnore>
+                    <skip>true</skip>
+                </configuration>
+            </plugin>
+
+            <!--maven-jar-plugin 负责将应用程序打包成可执行的jar文件-->
+            <!-- 打包成jar文件，并指定lib文件夹以及resources资源文件夹 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <!--运行jar包时运行的主类，要求类全名-->
+                            <mainClass>com.wxw.notes.builddemo.BuildDemoApplication</mainClass>
+                            <!-- 指定依赖的时候声明前缀 -->
+                            <classpathPrefix>lib/</classpathPrefix>
+                            <!-- 是否指定项目classpath下的依赖 -->
+                            <addClasspath>true</addClasspath>
+                        </manifest>
+                        <manifestEntries>
+                            <Class-Path>/</Class-Path>
+                        </manifestEntries>
+                    </archive>
+                    <excludes>
+                        <!-- 去掉不需要打进 jar 的配置文件 -->
+                        <exclude>**/*.yml</exclude>
+                        <exclude>**/*.sh</exclude>
+                        <exclude>**/bin</exclude>
+                        <exclude>**/config</exclude>
+                    </excludes>
+                </configuration>
+            </plugin>
+
+            <!--maven-assembly-plugin，负责将整个项目按照自定义的目录结构打成最终的压缩包，方便实际部署 -->
+            <plugin>
+                <!--使用插件-->
+                <artifactId>maven-assembly-plugin</artifactId>
+                <configuration>
+                    <!--自定义的configuration配置后，将会生成一个demo-demo.jar 文件在目录 output 下，其中前一个demo
+                    来自finalName，后一个demo来自assembly descriptor中的id，其中的内容和默认的打包出来的jar类似，
+                    如果只想有finalName，则增加配置：<appendAssemblyId/>-->
+                    <appendAssemblyId>false</appendAssemblyId>
+                    <!--输出路径-->
+                    <outputDirectory>${project.build.directory}/dist/</outputDirectory>
+                    <!--描述文件位置-->
+                    <descriptors>
+                        <descriptor>src/main/resources/assembly.xml</descriptor>
+                    </descriptors>
+                </configuration>
+                <!--配置执行器-->
+                <executions>
+                    <execution>
+                        <id>make-assembly</id>
+                        <!--绑定到package生命周期阶段上-->
+                        <phase>package</phase>
+                        <goals>
+                            <!--只运行一次-->
+                            <goal>single</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!-- 解压插件 -->
+            <plugin>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <!-- 绑定到package生命周期阶段上 -->
+                        <phase>package</phase>
+                        <configuration>
+                            <tasks>
+                                <echo message="unziping ${project.artifactId}.zip"/>
+                                <!-- src：需要解压文件的路径，dest：文件解压之后的路径 -->
+                                <unzip src="target/dist/${project.artifactId}.zip" dest="target/dist/${project.artifactId}"/>
+                            </tasks>
+                        </configuration>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+        </plugins>
+
+
+    </build>
+
+
+</project>
