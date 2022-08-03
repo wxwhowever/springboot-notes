@@ -1,0 +1,48 @@
+//使用 proto3 语法 ,未指定则使用proto2
+syntax = "proto3";
+
+//生成 proto 文件所在包路径
+package com.wxw.notes.protobuf.proto;
+
+//生成 proto 文件所在包路径
+option java_package = "com.wxw.notes.protobuf.proto";
+
+//生成 proto 的文件名
+option java_outer_classname="UserProto";
+
+// 引入外部的 proto 对象
+import "Role.proto";
+
+//创建一个 User 对象
+message User{
+	//自身属性
+	int32 id = 1;
+	string code = 2;
+	string name = 3;
+
+	// 对象
+	NickName nickName = 4;
+
+	//list 引用类型
+	repeated string strList = 5;
+
+	//list 对象（此对象为引入的外部 proto 文件）
+	repeated Role roleList = 6;
+
+	// 定义简单的 Map string
+	map<string, string> map = 7;
+
+	// 定义复杂的 Map 对象
+	map<string, MapVauleObject> mapObject = 8;
+}
+
+// 定义一个新的Name对象
+message NickName {
+	string nickName = 1;
+}
+
+// 定义 Map 的 value 对象
+message MapVauleObject {
+	string code = 1;
+	string name = 2;
+}
