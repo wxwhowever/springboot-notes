@@ -1,0 +1,20 @@
+server:
+  port: 7005
+
+spring:
+  application:
+    name: nats
+
+nats:
+  # nats 地址
+  nats-urls: nats://192.168.202.128:4222
+  # 最大重连次数
+  max-reconnect: 60
+  # 重连等待时间
+  reconnect-wait: 2
+  # 连接超时时间
+  connection-timeout: 2
+  # 用户名
+  user-name: nats
+  # 密码
+  password: nats
