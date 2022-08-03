@@ -1,0 +1,12 @@
+server:
+  port: 7008
+spring:
+  application:
+    name: rabbitmq-demo
+  #配置rabbitMq 服务器
+  rabbitmq:
+    host: 192.168.202.128
+    port: 5672
+    username: guest
+    password: guest
+    virtual-host: /
