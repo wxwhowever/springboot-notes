@@ -1,0 +1,54 @@
+<assembly xmlns="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.2"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.2 http://maven.apache.org/xsd/assembly-1.1.2.xsd">
+
+    <!--标识符，添加到生成文件名称的后缀符。如果指定 id 的话，目标文件则是 ${artifactId}-${id}.zip-->
+    <id>build-demo</id>
+    <formats>
+        <!--指定打包类型: zip、tar、tar.gz(or tgz)、tar.bz2 (or tbz2)、tar.snappy 、tar.xz (or txz)、jar、dir、war-->
+        <format>zip</format>
+    </formats>
+
+    <!--是否包含根目录-->
+    <!--指定是否包含打包层目录（比如finalName是build-demo，当值为true，所有文件被放在build-demo目录下，否则直接放在包的根目录下）-->
+    <includeBaseDirectory>true</includeBaseDirectory>
+
+
+    <fileSets><!--指定要包含的文件集，可以定义多个fileSet；-->
+        <fileSet>
+            <!--指定要包含的目录-->
+            <directory>src/main/resources/</directory>
+            <!--指定当前要包含的目录的目的地-->
+            <outputDirectory>/</outputDirectory>
+            <!-- 指定排除的文件 -->
+            <excludes>
+                <exclude>assembly.xml</exclude>
+            </excludes>
+        </fileSet>
+    </fileSets>
+
+    <!--用来定制工程依赖 jar 包的打包方式-->
+    <dependencySets>
+
+        <dependencySet>
+            <!--  当前工程的依赖和工程本身生成的jar都会被打包进来。如果要排除工程自身生成的jar，useProjectArtifact 设定为 false-->
+            <useProjectArtifact>false</useProjectArtifact>
+            <!--设置相对于程序集根目录根目录的输出目录-->
+            <outputDirectory>/lib</outputDirectory>
+            <!--默认级别-->
+            <!--将scope为runtime的依赖包打包-->
+            <scope>runtime</scope>
+            <excludes>
+                <exclude>${project.groupId}:${project.artifactId}</exclude>
+            </excludes>
+        </dependencySet>
+        <!--        自己代码对应的 jar 包-->
+        <dependencySet>
+            <!--输出路径-->
+            <outputDirectory>/</outputDirectory>
+            <includes>
+                <include>${project.groupId}:${project.artifactId}</include>
+            </includes>
+        </dependencySet>
+    </dependencySets>
+</assembly>
