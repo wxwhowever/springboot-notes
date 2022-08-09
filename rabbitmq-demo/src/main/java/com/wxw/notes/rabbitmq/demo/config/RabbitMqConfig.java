@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Configuration;
 /**
  * @author wuxiongwei
  * @date 2022/7/28 10:25
- * @Description
+ * @Description 五种常用消息模式配置文件
  */
 @Configuration
 public class RabbitMqConfig {

@@ -10,3 +10,22 @@ spring:
     username: guest
     password: guest
     virtual-host: /
+    # 开启生产者发布确认，确认消息已发送到交换机 Exchange
+    publisher-confirm-type: correlated
+    # 开启发布者返回，确认消息已发送到队列 Queue
+    publisher-returns: true
+    listener:
+      simple:
+        # 开启消息手动确认(即需要调用channel.basicAck才会从队列中删除消息)，默认是 NONE
+        acknowledge-mode: manual
+        #表示消费者端每次从队列拉取多少个消息进行消费,直到手动确认消费完毕后,才会继续拉取下一条
+        prefetch: 1
+        #消费被拒绝时 true：重回队列 false为否
+        default-requeue-rejected: false
+        retry:
+          #是否支持重试,默认false
+          enabled: true
+          #重试最大次数,默认3次
+          max-attempts: 3
+          #重试最大间隔时间
+          max-interval: 1000ms

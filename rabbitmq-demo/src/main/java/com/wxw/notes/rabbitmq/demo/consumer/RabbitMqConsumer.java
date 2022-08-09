@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 /**
  * @author wuxiongwei
  * @date 2022/7/28 10:32
- * @Description
+ * @Description 五种常用消息模式-消费者，注意此处基于配置消息确认方式为非手动
  */
 @Slf4j
 @Component
